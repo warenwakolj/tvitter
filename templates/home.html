@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tviter)) - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <h1>tviter))</h1>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+        </nav>
+
+        <main>
+            <div class="tweet-box">
+                <form action="{{ url_for('tweet') }}" method="POST">
+                    <textarea name="tweet" placeholder="What's happening?" required></textarea>
+                    <button type="submit">Tweet</button>
+                </form>
+            </div>
+
+            <section class="tweets">
+                <h3>Latest Tweets</h3>
+                {% for tweet in tweets %}
+                    <article class="tweet">
+                        <div class="tweet-header">
+                            {% if tweet.profile_pic %}
+                                <img src="{{ url_for('static', filename='uploads/profile_pic.png') }}" class="tweet-profile-pic" alt="Profile Picture">
+                            {% endif %}
+                            <div>
+                                <strong>{{ tweet.username }}</strong>
+                                <span class="timestamp">{{ tweet.timestamp }}</span>
+                            </div>
+                        </div>
+                        <p>{{ tweet.content }}</p>
+                    </article>
+                {% endfor %}
+            </section>
+        </main>
+    </div>
+</body>
+</html>
